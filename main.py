@@ -1,35 +1,32 @@
 import sys
 import pygame
 
+from sprites import Dino, Road, Cloud
+
 pygame.init()
 
 WIDTH = 700
 HEIGHT = 500
-
-# !
 WHITE = (255, 255, 255)
-BACKGROUND = pygame.image.load(r"sprites\track.png")
-CLOUD = pygame.image.load(r"sprites\cloud.png")
-DINO = pygame.image.load(r"sprites\Dino\DinoStart.png")
 
-# !
-SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
-
-pygame.display.set_caption("Dino")
-
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Dino Chrome")
 clock = pygame.time.Clock()
 
+road = Road(screen, 0, HEIGHT / 2)
+dino = Dino(screen, 0, HEIGHT / 2.75)
+cloud1 = Cloud(screen, WIDTH / 1.25, HEIGHT / 4)
+cloud2 = Cloud(screen, WIDTH / 4, HEIGHT / 4)
+cloud3 = Cloud(screen, WIDTH / 2, HEIGHT / 9)
+
 while True:
-    # !
-    SCREEN.fill(WHITE)
-    SCREEN.blit(BACKGROUND, (0, HEIGHT / 2))
-    SCREEN.blit(CLOUD, (WIDTH / 1.25, HEIGHT / 4))
-    SCREEN.blit(CLOUD, (WIDTH / 4, HEIGHT / 4))
-    SCREEN.blit(CLOUD, (WIDTH / 2, HEIGHT / 9))
-    SCREEN.blit(DINO, (0, HEIGHT / 2.75))
+    screen.fill(WHITE)
 
-    
-
+    screen.blit(road.image, (road.x, road.y))
+    screen.blit(dino.image, (dino.x, dino.y))
+    screen.blit(cloud1.image, (cloud1.x, cloud1.y))
+    screen.blit(cloud2.image, (cloud2.x, cloud2.y))
+    screen.blit(cloud3.image, (cloud3.x, cloud3.y))
 
     pygame.display.update()
 
