@@ -14,7 +14,7 @@ pygame.display.set_caption("Dino Chrome")
 clock = pygame.time.Clock()
 
 road = Road(screen, 0, HEIGHT / 2)
-dino = Dino(screen, 0, HEIGHT / 2.75)
+dino = Dino(screen, WIDTH / 4, HEIGHT / 2.2, road)
 cloud1 = Cloud(screen, WIDTH / 1.25, HEIGHT / 4)
 cloud2 = Cloud(screen, WIDTH / 4, HEIGHT / 4)
 cloud3 = Cloud(screen, WIDTH / 2, HEIGHT / 9)
@@ -30,9 +30,23 @@ while True:
 
     pygame.display.update()
 
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 
-    clock.tick(10)
+        # if event.type == pygame.KEYDOWN:
+        #     mods = pygame.key.get_mods()
+        #     if event.key == pygame.K_RIGHT:
+        #         road.x += 10
+        #     elif event.key == pygame.K_LEFT:
+        #         road.x -= 10
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        dino.move_left()
+    elif keys[pygame.K_RIGHT]:
+        dino.move_right()
+
+    clock.tick(30)
