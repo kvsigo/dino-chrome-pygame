@@ -4,7 +4,7 @@ class Road(pygame.sprite.Sprite):
     def __init__(self, surface):
         super().__init__()
         self.surface = surface
-        self.image = pygame.image.load(r"assets\track.png")
+        self.image = pygame.image.load(r"assets\images\track.png")
 
         self.rect = self.image.get_rect()
         self.rect.midleft = (0, self.surface.get_height() / 2)

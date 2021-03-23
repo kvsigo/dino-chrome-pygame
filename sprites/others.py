@@ -6,7 +6,7 @@ class Score(pygame.sprite.Sprite):
         self.surface = surface
         self.points = 0
 
-        self.font = pygame.font.Font('assets\game.ttf', 20)
+        self.font = pygame.font.Font(r'assets\fonts\game.ttf', 20)
         self.image = self.font.render(f"HI {self.points}", True, (83, 83, 83))
 
         self.rect = self.image.get_rect()
@@ -25,7 +25,7 @@ class GameOver(pygame.sprite.Sprite):
         super().__init__()
         self.surface = surface
 
-        self.font = pygame.font.Font('assets\game.ttf', 20)
+        self.font = pygame.font.Font(r'assets\fonts\game.ttf', 20)
         self.image = self.font.render("G A M E  O V E R", True, (83, 83, 83))
 
         self.rect = self.image.get_rect()

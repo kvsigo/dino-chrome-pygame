@@ -5,15 +5,15 @@ class Dino(pygame.sprite.Sprite):
         super().__init__()
         self.surface = surface
         
-        self.run1 = pygame.image.load(r"assets\DinoRun1.png")
+        self.run1 = pygame.image.load(r"assets\images\DinoRun1.png")
         self.run1 = pygame.transform.scale(self.run1, (self.run1.get_width() // 2, self.run1.get_height() // 2))
-        self.run2 = pygame.image.load(r"assets\DinoRun2.png")
+        self.run2 = pygame.image.load(r"assets\images\DinoRun2.png")
         self.run2 = pygame.transform.scale(self.run2, (self.run2.get_width() // 2, self.run2.get_height() // 2))
-        self.dead = pygame.image.load(r"assets\DinoDead.png")
+        self.dead = pygame.image.load(r"assets\images\DinoDead.png")
         self.dead = pygame.transform.scale(self.dead, (self.dead.get_width() // 2, self.dead.get_height() // 2))
 
-        self.die_sound = pygame.mixer.Sound(r'assets\die.wav')
-        self.jump_sound = pygame.mixer.Sound(r'assets\jump.wav')
+        self.die_sound = pygame.mixer.Sound(r'assets\sounds\die.wav')
+        self.jump_sound = pygame.mixer.Sound(r'assets\sounds\jump.wav')
 
         self.image = self.run1
 

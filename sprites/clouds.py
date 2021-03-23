@@ -5,7 +5,7 @@ class Cloud(pygame.sprite.Sprite):
     def __init__(self, surface):
         super().__init__()
         self.surface = surface
-        self.image = pygame.image.load(r"assets\cloud.png")
+        self.image = pygame.image.load(r"assets\images\cloud.png")
 
         self.rect = self.image.get_rect()
         x = self.surface.get_width() + self.image.get_width()

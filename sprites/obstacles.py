@@ -5,7 +5,7 @@ class Cactus(pygame.sprite.Sprite):
     def __init__(self, surface):
         super().__init__()
         self.surface = surface
-        self.image = pygame.image.load(r"assets\Cactus.png")
+        self.image = pygame.image.load(r"assets\images\Cactus.png")
         self.image = pygame.transform.scale(self.image, (self.image.get_width() // 2, self.image.get_height() // 2))
 
         self.rect = self.image.get_rect()
