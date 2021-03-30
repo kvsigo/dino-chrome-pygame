@@ -6,7 +6,6 @@ This project was developed by [Python 3.9.0](https://www.python.org/downloads/).
 * [Python 3.9.0](https://www.python.org/downloads/)
 * [Pygame 2.0.0](https://www.python.org/downloads/)
 
-![PNG](docs/img/game.png)
 ![GIF](docs/img/game.gif)
 
 To start the program, run the command:
