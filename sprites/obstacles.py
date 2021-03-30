@@ -1,21 +1,27 @@
 import pygame
 import random
+import os
 
 class Cactus(pygame.sprite.Sprite):
-    def __init__(self, surface):
+    def __init__(self):
         super().__init__()
-        self.surface = surface
-        self.image = pygame.image.load(r"assets\images\Cactus.png")
-        self.image = pygame.transform.scale(self.image, (self.image.get_width() // 2, self.image.get_height() // 2))
-
+        images = ['largecactus1.png', 'largecactus2.png', 'largecactus3.png',
+                  'smallcactus1.png', 'smallcactus2.png', 'smallcactus3.png']
+        image = os.path.join(r'assets\images', random.choice(images))
+        self.image = pygame.image.load(image)
         self.rect = self.image.get_rect()
-        self.rect.center = self.surface.get_width(), self.surface.get_height() / 2.15
+
+        surface = pygame.display.get_surface()
+        self.rect.bottomleft = (surface.get_width() * 2, surface.get_height() / 1.95)
+
+        self.speed = random.randint(2, 5)
+
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
 
     def update(self):
         self.rect.x -= 5
-        
-        # Удаление из всех групп, в которых состоит объект
-        if self.rect.right < 0:
-            for group in self.groups():
-                group.remove(self)
 
+        surface = pygame.display.get_surface()
+        if self.rect.right < 0:
+            self.kill()

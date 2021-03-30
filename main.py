@@ -1,96 +1,75 @@
-# Импортирование модулей
-import sys
 import pygame
-import random
-
+import sys
 from sprites.road import Road
-from sprites.clouds import Cloud
-from sprites.others import *
+from sprites.cloud import Cloud
+from sprites.dino import Dino
 from sprites.obstacles import Cactus
-from sprites.player import Dino
-
-# Подключение
+from sprites.game import Score, Game
+ 
 pygame.init()
-
+ 
 # Константы
 WIDTH = 700
 HEIGHT = 500
 FPS = 60
-
-# Цвета
-WHITE = (255, 255, 255)
-
-# Параметры окна
+ 
+# Создание окна
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Dino Chrome")
 clock = pygame.time.Clock()
-
-
+ 
 def main():
-    # Спрайты и группы спрайтов
-    background = pygame.sprite.Group()
+    # Спрайты
+    road = Road()
     clouds = pygame.sprite.Group()
+    player = Dino()
     obstacles = pygame.sprite.Group()
-
-    road = Road(screen)
-    player = Dino(screen)
-    score = Score(screen)
-
-    background.add(road, score)
-
-    # Главный цикл
+    score = Score()
+    
     running = True
     while running:
-        # Частота обновления
+        # Частота обновления экрана
         clock.tick(FPS)
-
-        # Случайное генерирование объектов
-        if len(clouds) < 3:
-            clouds.add(Cloud(screen))
-            background.add(clouds)
-
-        if random.randint(1, 1000) in range(1, 10) and len(obstacles) < 1:
-            obstacles.add(Cactus(screen))
-
-        if pygame.sprite.spritecollide(player, obstacles, False):
-            player.image = player.dead
-            player.die_sound.play()
-            background.add(GameOver(screen))
-            running = False
-
-        # Отрисовка фона и объектов
-        screen.fill(WHITE)
-        background.draw(screen)
-        obstacles.draw(screen)
-        player.draw(screen)
-
-        # Обновление объектов
-        background.update()
-        obstacles.update()
-        player.update()
-
-        # События (нажатия на кнопку)
+    
+        # События
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
+                pygame.quit()
+                sys.exit()
 
-        # Переворачиваем доску
-        pygame.display.flip()
+        for obstacle in obstacles:
+            if pygame.sprite.collide_mask(player, obstacle):
+                player.sound_die.play()
+                game = Game()
+                game.draw(screen)
+                pygame.display.update()
+                game.over(main)
+    
+        # Рендеринг
+        screen.fill((255, 255, 255))
+        road.draw(screen)
+        clouds.draw(screen)
+        player.draw(screen)
+        obstacles.draw(screen)
+        score.draw(screen)
+    
+        # Обновление спрайтов
+        road.update()
+        clouds.update()
+        player.update()
+        obstacles.update()
+        score.update()
 
-        if not running:
-            # Конец игры: можно либо выйти, либо начать заново при нажатии на пробел
-            while True:
-                clock.tick(5)
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        pygame.quit()
-                        sys.exit()
+        if len(clouds) < 3:
+            cloud = Cloud()
+            clouds.add(cloud)
 
-                keys = pygame.key.get_pressed()
-                if keys[pygame.K_UP] or keys[pygame.K_SPACE]:
-                    main()
-                
-        
-if __name__ == '__main__':
+        if len(obstacles) < 1:
+            cactus = Cactus()
+            obstacles.add(cactus)
+    
+        # Обновление экрана
+        pygame.display.update()
+ 
+if __name__ == "__main__":
     main()
