@@ -10,7 +10,7 @@ class Road(pygame.sprite.Sprite):
         self.rect1 = self.image1.get_rect()
 
         surface = pygame.display.get_surface()
-        self.rect.midleft = (0, surface.get_height() / 2)
+        self.rect.midleft = surface.get_rect().midleft
         self.rect1.midleft = self.rect.midright
 
     def draw(self, surface):
