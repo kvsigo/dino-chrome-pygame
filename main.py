@@ -4,7 +4,7 @@ from sprites.road import Road
 from sprites.cloud import Cloud
 from sprites.dino import Dino
 from sprites.obstacles import Cactus
-from sprites.game import Score, Game
+from sprites.game import Score, GameOver
  
 pygame.init()
  
@@ -25,8 +25,9 @@ def main():
     player = Dino()
     obstacles = pygame.sprite.Group()
     score = Score()
-    
-    running = True
+
+    game_over = False
+    running = True    
     while running:
         # Частота обновления экрана
         clock.tick(FPS)
@@ -36,14 +37,15 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and game_over:
+                    main()
 
         for obstacle in obstacles:
-            if pygame.sprite.collide_mask(player, obstacle):
+            if pygame.sprite.collide_mask(player, obstacle) and not game_over:
                 player.sound_die.play()
-                game = Game()
-                game.draw(screen)
-                pygame.display.update()
-                game.over(main)
+                game_over = True
+                end = GameOver()
     
         # Рендеринг
         screen.fill((255, 255, 255))
@@ -53,12 +55,16 @@ def main():
         obstacles.draw(screen)
         score.draw(screen)
     
+        if game_over:
+            end.draw(screen)
+    
         # Обновление спрайтов
-        road.update()
-        clouds.update()
-        player.update()
-        obstacles.update()
-        score.update()
+        if not game_over:
+            road.update()
+            clouds.update()
+            player.update()
+            obstacles.update()
+            score.update()
 
         if len(clouds) < 3:
             cloud = Cloud()

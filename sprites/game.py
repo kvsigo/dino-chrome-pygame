@@ -24,7 +24,7 @@ class Score(pygame.sprite.Sprite):
         if self.step % 10 == 0:
             self.points += 1
 
-class Game(pygame.sprite.Sprite):
+class GameOver(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
@@ -43,17 +43,3 @@ class Game(pygame.sprite.Sprite):
     def draw(self, surface):
         surface.blit(self.image, self.rect)
         surface.blit(self.image1, self.rect1)
-
-    def over(self, function):
-        clock = pygame.time.Clock()
-        while True:
-            clock.tick(5)
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_SPACE]:
-                function()

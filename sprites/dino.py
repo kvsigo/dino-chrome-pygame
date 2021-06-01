@@ -21,6 +21,8 @@ class Dino(pygame.sprite.Sprite):
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
+
+    def update(self):
         self.step += 1
         if self.step % 7 == 0:
             if self.image == self.image_run1:
@@ -28,10 +30,8 @@ class Dino(pygame.sprite.Sprite):
             else:
                 self.image = self.image_run1
 
-    def update(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE]:
-            if not self.jumping:
+        if keys[pygame.K_SPACE] and not self.jumping:
                 self.jumping = True
                 self.sound_jump.play()
 
